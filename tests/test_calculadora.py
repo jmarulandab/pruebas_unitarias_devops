@@ -34,7 +34,7 @@ def test_multiplicar_positivos():
     # Arrange
     a, b = 3, 4
     # Act
-    resultado multiplicar(a, b)
+    resultado =  multiplicar(a, b)
     # Assert
     assert resultado == 12
 
