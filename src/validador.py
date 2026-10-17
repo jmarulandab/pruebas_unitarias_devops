@@ -1,8 +1,9 @@
 """
 Módulo de validación de datos.
-ATENCIÓN: Hay 1 bug oculto en este archivo.
+ATENCIÓN: Bug corregido.
 """
 
+from datetime import datetime
 import re
 
 def validar_email(email):
@@ -91,17 +92,15 @@ def validar_fecha(dia, mes, año):
     if not all(isinstance(x, int) for x in [dia, mes, año]):
         return False
 
-    # BUG: No valida correctamente el mes y día
-    if mes < 1 or mes > 12:
-        return False
-
-    if dia < 1 or dia > 31:
-        return False
-
     if año < 1900 or año > 2100:
         return False
 
-    return True
+    # CORRECCIÓN BUG: Validar la existencia real de la fecha usando datetime
+    try:
+        datetime(año, mes, dia)
+        return True
+    except ValueError:
+        return False
 
 def validar_cedula(cedula):
     """Valida si una cédula colombiana tiene formato básico."""
