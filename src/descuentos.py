@@ -24,6 +24,8 @@ def calcular_descuento(precio, porcentaje):
 
     return precio * (porcentaje / 100)
 
+
+
 def calcular_precio_final(precio, impuesto, descuento):
     """Calcula el precio final con impuesto y descuento."""
     if precio < 0:
@@ -38,12 +40,12 @@ def calcular_precio_final(precio, impuesto, descuento):
     # Primero aplicar el descuento
     precio_con_descuento = aplicar_descuento(precio, descuento)
 
-    # Luego aplicar el impuesto
-    # BUG 1: El impuesto se aplica incorrectamente
-    impuesto_monto = precio * (impuesto / 100)
+    # Luego aplicar el impuesto sobre el precio con descuento
+    impuesto_monto = precio_con_descuento * (impuesto / 100)
     precio_final = precio_con_descuento + impuesto_monto
 
     return precio_final
+
 
 def descuento_por_volumen(cantidad, precio_unitario):
     """Calcula el precio con descuento por volumen."""
@@ -97,5 +99,8 @@ def descuento_apilado(precio, descuentos):
     # Sumar todos los descuentos
     total_descuento = sum(descuentos)
 
-    # BUG 2: El descuento total puede exceder el 100%
+    # Si el descuento acumulado supera el 100%, se limita al 100%
+    if total_descuento > 100:
+        total_descuento = 100
+
     return aplicar_descuento(precio, total_descuento)
